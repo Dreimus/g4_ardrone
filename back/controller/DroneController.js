@@ -7,6 +7,7 @@
 	drone model.
 
 \*-------------------------------------------------*/
+
 // - INCLUDES
 var server = require('./Server.js');
 var drone = require('./Drone.js');
@@ -17,10 +18,13 @@ var stop = require('./EmergencyStop.js');
 function init( maxHeight ){ drone.init(maxHeight); }
 
 // - Stop request in case of emergency
-function forceStop(){	stop.emergencyStop(); }
+function forceStop(){stop.emergencyStop(); }
 
 // - Plan transmission to Drone model
 function setPlan( givenPlan ){ 
+	if( givenPlan === undefined ){
+		throw new "ERR - Cannot find Plan.";
+	}
 	drone.setPlan(givenPlan);
 	eventEmitter.emit('dc_planExecution');
 }
