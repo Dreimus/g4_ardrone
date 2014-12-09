@@ -43,29 +43,29 @@ function execute(plan){
 			case ETypeAction_file.ETypeAction.Move : 				
 				switch(actionList[index].direction){
 					case EDirection_file.EDirection.Forward :
-						drone.forward( ( actionList[index].value / 100 ) );
+						drone.forward( actionList[index].value );
 						break;
 
 					case EDirection_file.EDirection.Backward :
-						drone.backward( ( actionList[index].value / 100) );
+						drone.backward( actionList[index].value );
 						break;
 
 					case EDirection_file.EDirection.Left :
-						drone.left(( actionList[index].value / 100 ) );
+						drone.left( actionList[index].value );
 						break;
 
 					case EDirection_file.EDirection.Right :
-						drone.right( ( actionList[index].value / 100 ) );
+						drone.right( actionList[index].value );
 						break;
 
 					case EDirection_file.EDirection.Up :
 						if( ( currentHeight + actionList[index].value ) < getHeightMax){
-						drone.up( ( actionList[index].value / 100 ) );
+						drone.up( actionList[index].value );
 						}
 						break;
 
 					case EDirection_file.EDirection.Down :
-						drone.down( ( actionList[index].value / 100 ) );
+						drone.down( actionList[index].value );
 						break;
 
 					default: 
