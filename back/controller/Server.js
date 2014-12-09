@@ -3,8 +3,6 @@ var express = require('express'),
   port = 13000,
   server = app.listen(port),
   io = require('socket.io').listen(server),
-  events = require('events'),
-  eventEmitter = new events.EventEmitter(),
   path = require("path"),
   rootPath = __dirname + "/../../",
   frontPath = rootPath + "front/",
@@ -21,6 +19,9 @@ DroneAction = require(rootPath + "common/model/DroneAction");
 
 global.low = require('lowdb');
 global.db = low("../../db/db.json");
+
+global.events = require('events'),
+global.eventEmitter = new events.EventEmitter(),
 
 global.Enum = require('enum');
 global.ETypeAction_file = require(rootPath + "common/enum/ETypeAction.js");
@@ -55,8 +56,14 @@ var p = new Plan("Plan4");
 // p.savePlan();
 // p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Rotation, EDirection_file.EDirection.Forward, 20));
 // p.savePlan();
-console.log(p.getFlyActionList()[0]);
 
+p.name = "truc";
+p.savePlan();
+
+//console.log("Exist : " + Plan.exist("Plan4"));
+console.log(p);
+
+console.log(p);
 
 // Some logging for informations
 console.log("Serveur démarrer sur le port : " + port);

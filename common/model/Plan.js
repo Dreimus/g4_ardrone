@@ -24,40 +24,41 @@ function Plan(name, actionList) {
   } else {
     throw "Name cannot be undefined";
   }
-  
+
 }
 
+// Helper to test if a plan already exist
+Plan.exist = function(name){
+  return !(db("Plans").find({name: name}).value() === undefined);
+};
+
+// Remove an action from the list identified by rank
+Plan.prototype.removeAction = function(rank){
+  this.actionList.splice(rank, 1);
+};
+
+// Update an action from the list identified by rank
 Plan.prototype.editAction = function(rank, action){
   this.actionList[rank] = action;
 };
 
+// Add an action at the end of the list
 Plan.prototype.addAction = function(action){
   this.actionList.push(action);
 };
 
+// Return this ActionList of this Instance
 Plan.prototype.getFlyActionList = function () {
   return this.actionList;
-}
-
-Plan.prototype.getList = function () {
-  var bou = db("test").find({type: ETypeAction_file.ETypeAction.Move}).value().direction
-    
-  if (bou === EDirection_file.EDirection.Forward)  
-    console.log("true");
-  else
-    console.log("false");
-    
 };
 
+// Save the currentInstance into the database
 Plan.prototype.savePlan = function () {
-  //var test = new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 10);
-  //db("test").push(test);
-  //var v =  self.low.stringify(test);
-  
+  // If not in database, create a new record
   if (db("Plans").find({name : this.name}).value() === undefined) {
     db("Plans").push(this);
-  } else {
-    db('Plans').find({ name: this.name }).assign({ name: this.name, actionList: this.actionList});
+  } else { // Else update existing record
+    db('Plans').find({ name: this.name }).assign({actionList: this.actionList});
   }
   
 };
