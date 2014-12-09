@@ -1,6 +1,4 @@
-var low = require('lowdb'),
-  db = low("../../db/db.json"),
-  express = require('express'),
+var express = require('express'),
   app = express(),
   port = 13000,
   server = app.listen(port),
@@ -9,8 +7,29 @@ var low = require('lowdb'),
   eventEmitter = new events.EventEmitter(),
   path = require("path"),
   rootPath = __dirname + "/../../",
-  frontPath = rootPath + "front/";
+  frontPath = rootPath + "front/",
+  Plan = require(rootPath + "common/model/Plan");
 
+// Temporary import 
+DroneAction = require(rootPath + "common/model/DroneAction");
+
+/******************************************/
+// Load Global module for easy use
+// Carefull about loading order. 
+// Load dependencies of others files First !
+/******************************************/
+
+global.low = require('lowdb');
+global.db = low("../../db/db.json");
+
+global.Enum = require('enum');
+global.ETypeAction_file = require(rootPath + "common/enum/ETypeAction.js");
+global.EDirection_file = require(rootPath + "common/enum/EDirection.js");
+
+
+/******************************************/  
+// End Global Import
+/******************************************/
 
 // Route(s) settings
 
@@ -24,5 +43,20 @@ app.get('/assets/js/Client.js', function(req, res){
   res.sendFile(path.resolve(frontPath + 'assets/js/Client.js'));
 });
 
+// Sockets management
+io.sockets.on('connection', function (socket){
+  console.log("ocucou new connexion");
+});
+
+var p = new Plan("Plan4");
+p.savePlan();
+p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 10));
+p.savePlan();
+p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 20));
+p.savePlan();
+p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Rotation, EDirection_file.EDirection.Forward, 20));
+p.savePlan();
+
+// Some logging for informations
 console.log("Serveur démarrer sur le port : " + port);
 console.log(" Front path : " + frontPath);
