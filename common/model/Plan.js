@@ -7,27 +7,37 @@ function Plan(name, actionList) {
   var self = this;
   
   if (name != undefined) {
-    if (db("Plans").find({name : name}).value() === undefined) {
+    var dbValue = db("Plans").find({name : name}).value();
+    if (dbValue === undefined) {
       this.name = name;
+      
+      if (actionList === undefined) {
+        this.actionList = new Array();
+      } else {
+        this.actionList = actionList; 
+      }
+      
     } else {
-      throw "Duplicate name";
+      this.name = dbValue.name;
+      this.actionList = dbValue.actionList;
     }
   } else {
     throw "Name cannot be undefined";
   }
   
-  if (actionList === undefined) {
-    this.actionList = new Array();
-  } else {
-    this.actionList = actionList; 
-  }
-  
 }
+
+Plan.prototype.editAction = function(rank, action){
+  this.actionList[rank] = action;
+};
 
 Plan.prototype.addAction = function(action){
   this.actionList.push(action);
-  console.log(this.actionList);
 };
+
+Plan.prototype.getFlyActionList = function () {
+  return this.actionList;
+}
 
 Plan.prototype.getList = function () {
   var bou = db("test").find({type: ETypeAction_file.ETypeAction.Move}).value().direction

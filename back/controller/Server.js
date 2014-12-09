@@ -26,7 +26,6 @@ global.Enum = require('enum');
 global.ETypeAction_file = require(rootPath + "common/enum/ETypeAction.js");
 global.EDirection_file = require(rootPath + "common/enum/EDirection.js");
 
-
 /******************************************/  
 // End Global Import
 /******************************************/
@@ -49,13 +48,15 @@ io.sockets.on('connection', function (socket){
 });
 
 var p = new Plan("Plan4");
-p.savePlan();
-p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 10));
-p.savePlan();
-p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 20));
-p.savePlan();
-p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Rotation, EDirection_file.EDirection.Forward, 20));
-p.savePlan();
+// p.savePlan();
+// p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 10));
+// p.savePlan();
+// p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 20));
+// p.savePlan();
+// p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Rotation, EDirection_file.EDirection.Forward, 20));
+// p.savePlan();
+console.log(p.getFlyActionList()[0]);
+
 
 // Some logging for informations
 console.log("Serveur démarrer sur le port : " + port);

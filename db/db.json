@@ -17,6 +17,21 @@
           "type": "Rotation",
           "direction": "Forward",
           "value": 20
+        },
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": 10
+        },
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": 20
+        },
+        {
+          "type": "Rotation",
+          "direction": "Forward",
+          "value": 20
         }
       ]
     }
