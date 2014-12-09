@@ -16,8 +16,9 @@ drone
 		this.calibrate(0); // calibre le drone au decolage, provoque un 360.
 		this.animateLeds('blinkGreenOrangeRed',5,5); // fait clignoter les leds pour verif fonctionement.
 		videostream = this.getVideoStream(); // recupere la video.
-		controller.set(videostream);
+		controller.sendStream(videostream);
 	});
+	
 }
 
 function getHightMax(){
