@@ -7,3 +7,5 @@ function emergency_stop() {
 	.drone.stop();
 	.drone.land();
 }
+
+module.exports = emergencyStop;

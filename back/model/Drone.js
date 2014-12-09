@@ -14,12 +14,16 @@
 var autonomy = require('ardrone-autonomy');
 var drone = autonomy.createMission();
 var eventEmitter = require('events').EventEmitter
-var heightMax, currentHeight;
 
 
+function Drone(heightMax) {
+	var heightMax, currentHeight;
+	init(heightMax);
+
+}
 
 // - Initialization
-function init(heightMax){
+Drone.prototype.init = function(heightMax){
 	if(heightMax === undefined){
 		heightMax = 180;
 	}
@@ -34,7 +38,7 @@ function init(heightMax){
 
 // - Action Array Analysis and post-action treatment
 
-function execute(plan){
+Drone.prototype.execute = function (plan){
 
 	var actionList=plan.getFlyActionList();
 
@@ -98,7 +102,7 @@ function execute(plan){
 }
 
 // - Fly order
-function startFlight(){
+Drone.prototype.startFlight = function(){
 	drone.takeoff();
 	currentHeight=1;
 
@@ -112,7 +116,7 @@ function startFlight(){
 }
 
 // - Land order
-function stopFlight(){
+Drone.prototype.stopFlight = function (){
 	drone
 		.after(1000, function() {
 			this.stop();
@@ -123,14 +127,16 @@ function stopFlight(){
 }
 
 // - Height getter
-function getHeightMax(){
+Drone.prototype.getHeightMax = function(){
 	return heightMax;
 }
 
 // - Height setter
-function setHeightMax(height){
+Drone.prototype.setHeightMax = function(height){
 	heightMax=height;
 }
+
+module.exports = Drone;
 
 //=======================================================================================
 /* 
@@ -147,10 +153,11 @@ console.log('takeoff..');
 */
 
 /* --- fonction d'arrêt d'urgence --- */
-/*
-function emergency_stop() {
-	console.log('arrêt d\'urgence !!');
-	.drone.stop();
-	.drone.land();
-}
-*/
+
+// function emergency_stop() {
+// 	console.log('arrêt d\'urgence !!');
+// 	.drone.stop();
+// 	.drone.land();
+// }
+
+
