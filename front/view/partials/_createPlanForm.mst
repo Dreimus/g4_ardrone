@@ -12,3 +12,6 @@
     </option>
   {{/data2}}
 </select>
+<button class="addLine" onclick="testClick()" value="addLine">
+  +
+</button>

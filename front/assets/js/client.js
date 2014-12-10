@@ -6,6 +6,7 @@ window.onload = function () {
     req = new XMLHttpRequest(),
     app = document.querySelector("#app");
     
+    
     req.open('GET', 'http://localhost:13000/view/partials/createPlanForm', false);
     req.onreadystatechange = function (aEvt) {
       if (req.readyState == 4) {
@@ -16,5 +17,26 @@ window.onload = function () {
       }
     };
     req.send(null);
+
+    function getRessourceUrl(name, transacId) {
+      req.open('GET', 'http://localhost:13000/view/partials/createPlanForm', false);
+      req.onreadystatechange = function (aEvt) {
+        if (req.readyState == 4) {
+           if(req.status == 200)
+             app.innerHTML = req.responseText;
+           else
+            console.log("Erreur pendant le chargement de la page.\n");
+        }
+      };
+      req.send(null);
+    }
+
+    function onGetRessource(transacId, data) {
+
+    }   
    
+}
+
+function testClick() {
+  console.log("coucocucocu");
 }

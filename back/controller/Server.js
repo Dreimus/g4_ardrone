@@ -30,7 +30,10 @@ global.Enum = require('enum');
 global.ETypeAction_file = require(rootPath + "common/enum/ETypeAction.js");
 global.EDirection_file = require(rootPath + "common/enum/EDirection.js");
 
+// Return the content of a File encoded in "utf-8"
 global.customReadFile = function(filename) {return fs.readFileSync(filename, "utf-8")};
+// Render with mustache a file, with the @data options
+global.mstRender = function(filename, data) { return mustache.render(customReadFile(rootPath + filename), data)};
 
 /******************************************/  
 // End Global Import
@@ -40,7 +43,8 @@ global.customReadFile = function(filename) {return fs.readFileSync(filename, "ut
 
 // Default application root
 app.get('/', function(req, res){
-  res.sendFile(path.resolve(frontPath + 'view/index.html'));
+  //res.sendFile(mustache.render);
+  res.sendFile(path.resolve(frontPath + 'view/index.mst.html'));
 });
 
 // Route for loading Client.js
@@ -50,8 +54,10 @@ app.get('/assets/js/Client.js', function(req, res){
 
 app.get('/view/partials/createPlanForm', function(req, res){
   // res.send(jade.renderFile(frontPath + '/view/partials/_createPlanForm.jade'), {pageData: {name : ['name 1', 'name 2']}});
-   res.send(mustache.render(customReadFile(frontPath + 'view/partials/_createPlanForm.mst'),
-  {data: ETypeAction_file.ETypeAction.enums, data2: EDirection_file.EDirection.enums}));
+  //  res.send(mustache.render(customReadFile(frontPath + 'front/view/partials/_createPlanForm.mst'),
+  // {data: ETypeAction_file.ETypeAction.enums, data2: EDirection_file.EDirection.enums}));
+  res.send(mstRender("front/view/partials/_createPlanForm.mst",
+    {data: ETypeAction_file.ETypeAction.enums, data2: EDirection_file.EDirection.enums}));
 });
 
 // Sockets management
@@ -60,13 +66,9 @@ io.sockets.on('connection', function (socket){
 });
 
 var p = new Plan("Plan4");
-p.savePlan();
 p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 10));
-p.savePlan();
 p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 20));
-p.savePlan();
 p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Rotation, EDirection_file.EDirection.Forward, 20));
-p.savePlan();
 
 console.log(p.getFlyActionList()[0].type);
 
