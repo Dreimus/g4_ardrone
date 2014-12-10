@@ -19,6 +19,9 @@ DroneAction = require(rootPath + "common/model/DroneAction");
 
 global.low = require('lowdb');
 global.db = low("../../db/db.json");
+global.jade = require('jade');
+global.mustache = require('mustache');
+global.fs = require('fs');
 
 global.events = require('events'),
 global.eventEmitter = new events.EventEmitter(),
@@ -26,6 +29,8 @@ global.eventEmitter = new events.EventEmitter(),
 global.Enum = require('enum');
 global.ETypeAction_file = require(rootPath + "common/enum/ETypeAction.js");
 global.EDirection_file = require(rootPath + "common/enum/EDirection.js");
+
+global.customReadFile = function(filename) {return fs.readFileSync(filename, "utf-8")};
 
 /******************************************/  
 // End Global Import
@@ -43,27 +48,47 @@ app.get('/assets/js/Client.js', function(req, res){
   res.sendFile(path.resolve(frontPath + 'assets/js/Client.js'));
 });
 
+app.get('/view/partials/createPlanForm', function(req, res){
+  // res.send(jade.renderFile(frontPath + '/view/partials/_createPlanForm.jade'), {pageData: {name : ['name 1', 'name 2']}});
+   res.send(mustache.render(customReadFile(frontPath + 'view/partials/_createPlanForm.mst'),
+  {data: ETypeAction_file.ETypeAction.enums, data2: EDirection_file.EDirection.enums}));
+});
+
 // Sockets management
 io.sockets.on('connection', function (socket){
-  console.log("ocucou new connexion");
+  console.log("coucou new connexion");
 });
 
 var p = new Plan("Plan4");
-// p.savePlan();
-// p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 10));
-// p.savePlan();
-// p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 20));
-// p.savePlan();
-// p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Rotation, EDirection_file.EDirection.Forward, 20));
-// p.savePlan();
-
-p.name = "truc";
+p.savePlan();
+p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 10));
+p.savePlan();
+p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 20));
+p.savePlan();
+p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Rotation, EDirection_file.EDirection.Forward, 20));
 p.savePlan();
 
-//console.log("Exist : " + Plan.exist("Plan4"));
-console.log(p);
+console.log(p.getFlyActionList()[0].type);
 
-console.log(p);
+// p.name = "truc";
+// p.savePlan();
+
+//console.log("Exist : " + Plan.exist("Plan4"));
+// console.log(p);
+//
+// console.log(p);
+//
+// console.log(EDirection_file.EDirection.enums);
+//
+
+// var view = {
+//   title: "Joe",
+//   calc: function () {
+//     return 2 + 4;
+//  }
+// };
+// console.log(customReadFile(frontPath + 'view/partials/_createPlanForm.mst'));
+
 
 // Some logging for informations
 console.log("Serveur démarrer sur le port : " + port);

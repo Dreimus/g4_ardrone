@@ -1,0 +1,14 @@
+<select>
+  {{#data}}
+    <option value="{{value}}">
+      {{key}}
+    </option>
+  {{/data}}
+</select>
+<select>
+  {{#data2}}
+    <option value="{{value}}">
+      {{key}}
+    </option>
+  {{/data2}}
+</select>
