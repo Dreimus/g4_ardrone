@@ -2,10 +2,10 @@ var arDrone = require('ar-drone');
 var drone = arDrone.createClient();
 
 /* --- Fonction d'arrêt d'urgence --- */
-function emergency_stop() {
+function emergencyStop() {
 	console.log('arrêt d\'urgence !');
-	.drone.stop();
-	.drone.land();
+	drone.stop();
+	drone.land();
 }
 
 module.exports = emergencyStop;

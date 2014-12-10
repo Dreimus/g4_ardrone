@@ -9,95 +9,99 @@
 \*-------------------------------------------------*/
 
 
-//var arDrone = require('ar-drone');
-//var drone = arDrone.createClient();
+/* var arDrone = require('ar-drone');
+var dronev1 = arDrone.createClient(); */
 var autonomy = require('ardrone-autonomy');
 var drone = autonomy.createMission();
-var eventEmitter = require('events').EventEmitter
 
 
 function Drone(heightMax) {
 	var heightMax, currentHeight;
-	init(heightMax);
-
-}
-
-// - Initialization
-Drone.prototype.init = function(heightMax){
+	var self = this;
+	var plan = null;
 	if(heightMax === undefined){
 		heightMax = 180;
 	}
 	setHeightMax = heightMax;
-	drone
-		.after(2000, function(){
+	/* dronev1.after(2000, function(){
 			console.log('Initialisation');
-			this.animateLeds('blinkRedOrangeGreen',5,5); // Leds blinking		
+			this.animateLeds('blinkGreenRed',5,5); // Leds blinking		
 		});
-	eventEmitter.emit("drone_init");
+*/
+	eventEmitter.emit('drone_init');
+}
+
+Drone.prototype.setPlan = function (plan) {
+	if( plan === undefined ){
+		console.log('Plan cannot be found.')
+	}else {
+		this.plan = plan;
+	}
 }
 
 // - Action Array Analysis and post-action treatment
 
 Drone.prototype.execute = function (plan){
-
-	var actionList=plan.getFlyActionList();
+	if( plan !== undefined) {
+		this.plan = plan;
+}	
+	var actionList=this.plan.getFlyActionList();
 
 	for (var index = 0; index < actionList.lenght; index++) {
 		switch(actionList[index].type){
 			case ETypeAction_file.ETypeAction.Move : 				
 				switch(actionList[index].direction){
 					case EDirection_file.EDirection.Forward :
-						drone.forward( actionList[index].value );
-						break;
+					drone.forward( actionList[index].value );
+					break;
 
-					case EDirection_file.EDirection.Backward :
-						drone.backward( actionList[index].value );
-						break;
+				case EDirection_file.EDirection.Backward :
+					drone.backward( actionList[index].value );
+					break;
+
+				case EDirection_file.EDirection.Left :
+					drone.left( actionList[index].value );
+					break;
+
+				case EDirection_file.EDirection.Right :
+					drone.right( actionList[index].value );
+					break;
+
+				case EDirection_file.EDirection.Up :
+					if( ( currentHeight + actionList[index].value ) < getHeightMax){
+					drone.up( actionList[index].value );
+					}
+					break;
+
+				case EDirection_file.EDirection.Down :
+					drone.down( actionList[index].value );
+					break;
+
+				default: 
+					console.log("La direction n'existe par pour l'action "+index);
+			} // End Switch
+			break;
+
+		case ETypeAction_file.ETypeAction.Rotate :	
+				switch(actionList[index].direction){
 
 					case EDirection_file.EDirection.Left :
-						drone.left( actionList[index].value );
+						drone.cw(actionList[index].value);
 						break;
 
 					case EDirection_file.EDirection.Right :
-						drone.right( actionList[index].value );
+						drone.ccw(actionList[index].value);
 						break;
-
-					case EDirection_file.EDirection.Up :
-						if( ( currentHeight + actionList[index].value ) < getHeightMax){
-						drone.up( actionList[index].value );
-						}
-						break;
-
-					case EDirection_file.EDirection.Down :
-						drone.down( actionList[index].value );
-						break;
-
+						
 					default: 
 						console.log("La direction n'existe par pour l'action "+index);
-				} // End Switch
-				break;
+				}	
+			break;
 
-			case ETypeAction_file.ETypeAction.Rotate :	
-					switch(actionList[index].direction){
-
-						case EDirection_file.EDirection.Left :
-							drone.cw(actionList[index].value);
-							break;
-
-						case EDirection_file.EDirection.Right :
-							drone.ccw(actionList[index].value);
-							break;
-							
-						default: 
-							console.log("La direction n'existe par pour l'action "+index);
-					}	
-				break;
-
-			default: 
-				console.log("Erreur de traitement de l'action"+index);
-		}
-
-		eventEmitter.emit('drone.action');
+		default: 
+			console.log("Erreur de traitement de l'action"+index);
+	}
+	eventEmitter.emit('drone.action');
 	}
 }
 
@@ -105,25 +109,20 @@ Drone.prototype.execute = function (plan){
 Drone.prototype.startFlight = function(){
 	drone.takeoff();
 	currentHeight=1;
-
-	drone
+	/*
+	dronev1
 		.after(2000, function(){
 			this.animateLeds('green',5,5);		
 		});
+	*/
 	
-	
-	eventEmitter.emit("drone_start");
+	eventEmitter.emit('drone_start');
 }
 
 // - Land order
 Drone.prototype.stopFlight = function (){
-	drone
-		.after(1000, function() {
-			this.stop();
-			this.land();
-		});
-		
-	eventEmitter.emit("drone_stop");
+	drone.land();		
+	eventEmitter.emit('drone_stop');
 }
 
 // - Height getter
