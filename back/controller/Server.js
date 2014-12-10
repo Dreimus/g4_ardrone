@@ -19,7 +19,6 @@ DroneAction = require(rootPath + "common/model/DroneAction");
 
 global.low = require('lowdb');
 global.db = low("../../db/db.json");
-global.jade = require('jade');
 global.mustache = require('mustache');
 global.fs = require('fs');
 
@@ -48,14 +47,26 @@ app.get('/', function(req, res){
 });
 
 // Route for loading Client.js
-app.get('/assets/js/Client.js', function(req, res){
+app.get('/Client.js', function(req, res){
   res.sendFile(path.resolve(frontPath + 'assets/js/Client.js'));
 });
 
-app.get('/view/partials/createPlanForm', function(req, res){
-  // res.send(jade.renderFile(frontPath + '/view/partials/_createPlanForm.jade'), {pageData: {name : ['name 1', 'name 2']}});
-  //  res.send(mustache.render(customReadFile(frontPath + 'front/view/partials/_createPlanForm.mst'),
-  // {data: ETypeAction_file.ETypeAction.enums, data2: EDirection_file.EDirection.enums}));
+// Route for loading Partial.js
+app.get('/Partial.js', function(req, res){
+  res.sendFile(path.resolve(frontPath + 'assets/js/Partial.js'));
+});
+
+// Route for loading Helper.js
+app.get('/Helper.js', function(req, res){
+  res.sendFile(path.resolve(frontPath + 'assets/js/Helper.js'));
+});
+
+// Route for loading Page.js
+app.get('/Page.js', function(req, res){
+  res.sendFile(path.resolve(frontPath + 'assets/js/Page.js'));
+});
+
+app.get('/partials/createPlanForm', function(req, res){
   res.send(mstRender("front/view/partials/_createPlanForm.mst",
     {data: ETypeAction_file.ETypeAction.enums, data2: EDirection_file.EDirection.enums}));
 });
