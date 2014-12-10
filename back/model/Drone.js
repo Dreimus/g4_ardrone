@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+var readable = getReadableStreamSomehow();
+=======
 /*-------------------------------------------------*\
 				DRONE.JS
 
@@ -144,11 +147,18 @@ module.exports = Drone;
 
 var arDrone = require('ar-drone');
 var drone = arDrone.createClient();
+>>>>>>> 82e235383f24f6e444503d60997778783317217a
 
-drone.takeoff();
-console.log('takeoff..');
+function getStream() {
 
+}
 
+<<<<<<< HEAD
+function stream() {
+
+}
+
+=======
 */
 
 /* --- fonction d'arrêt d'urgence --- */
@@ -160,3 +170,4 @@ console.log('takeoff..');
 // }
 
 
+>>>>>>> 82e235383f24f6e444503d60997778783317217a
