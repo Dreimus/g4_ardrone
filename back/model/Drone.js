@@ -1,15 +1,10 @@
-var arDrone = require('ar-drone');
-var drone = arDrone.createClient();
+var readable = getReadableStreamSomehow();
 
-drone.takeoff();
-console.log('takeoff..');
+function getStream() {
 
-
-
-
-/* --- fonction d'arrêt d'urgence --- */
-function emergency_stop() {
-	console.log('arrêt d\'urgence !!');
-	.drone.stop();
-	.drone.land();
 }
+
+function stream() {
+
+}
+
