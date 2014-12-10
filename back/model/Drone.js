@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-var readable = getReadableStreamSomehow();
-=======
 /*-------------------------------------------------*\
 				DRONE.JS
 
@@ -138,36 +135,3 @@ Drone.prototype.setHeightMax = function(height){
 	heightMax=height;
 }
 
-module.exports = Drone;
-
-//=======================================================================================
-/* 
-
-		DEPRECACED SCRIPT
-
-var arDrone = require('ar-drone');
-var drone = arDrone.createClient();
->>>>>>> 82e235383f24f6e444503d60997778783317217a
-
-function getStream() {
-
-}
-
-<<<<<<< HEAD
-function stream() {
-
-}
-
-=======
-*/
-
-/* --- fonction d'arrêt d'urgence --- */
-
-// function emergency_stop() {
-// 	console.log('arrêt d\'urgence !!');
-// 	.drone.stop();
-// 	.drone.land();
-// }
-
-
->>>>>>> 82e235383f24f6e444503d60997778783317217a
