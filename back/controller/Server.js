@@ -62,43 +62,25 @@ io.sockets.on('connection', function (socket){
   console.log(" - New connexion registered");
 });
 
-var p = new Plan("Plan4");
-p.savePlan();
-p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 10));
-p.savePlan();
-p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 20));
-p.savePlan();
-p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Rotation, EDirection_file.EDirection.Forward, 20));
-p.savePlan();
-
-// --
-
-var actionList = new Array();
-
-var test = new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 10);
-actionList[actionList.length] = test;
-test = new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Left, 10);
-actionList[actionList.length] = test;
-test = new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Right, 10);
-actionList[actionList.length] = test;
-test = new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Up, 50);
-actionList[actionList.length] = test;
-test = new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Down, 50);
-actionList[actionList.length] = test;
-test = new DroneAction(ETypeAction_file.ETypeAction.Rotate, EDirection_file.EDirection.Left, 100);
-actionList[actionList.length] = test;
-test = new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Backward, 10);
-actionList[actionList.length] = test;
-
-plan = new Plan('Try1', actionList);
-
-var dc = new DroneController();
-dc.init(130);
-dc.setPlan(plan);
-dc.start();
-dc.stop();
-
 // Some logging for informations
 console.log(" - Server started on port " + port);
 console.log(" - Front path : " + frontPath);
+
+// --------------------- MAIN TRIES --------------------------
+var p = new Plan("Plan4");
+p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 1));
+p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 2));
+p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 3));
+
+console.log(p.getFlyActionList());
+
+// --
+
+var dc = new DroneController();
+dc.init(130);
+dc.setPlan(p);
+dc.start();
+dc.stop()
+console.log('END');
+
 
