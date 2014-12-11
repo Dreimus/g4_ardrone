@@ -57,35 +57,36 @@ Drone.prototype.execute = function (action){
 
 			case EDirection_file.EDirection.Forward.key :
 				drone.after(1000, function(){
-					this.front(  (action.value / 100 ) );
-					console.log('[SUCCESS] - ACTION PERFORMED : MOVE FORWARD ON '+action.value+' CM');
-					setTimeout(function () {eventEmitter.emit('drone_action'); drone.stop();}, 1000);
+					this.front(0.1);
+					console.log('[SUCCESS] - ACTION PERFORMED : MOVE FORWARD ON 0.1 CM');
+					setTimeout(function () {eventEmitter.emit('drone_action'); drone.stop();}, self.setMovementTime(action.value));
 				});
 				break;
 
 			case EDirection_file.EDirection.Backward.key :
 				drone.after(1000, function (){
-					this.back(  (action.value / 100 ) );
-					console.log('[SUCCESS] - ACTION PERFORMED : MOVE BACKWARD ON '+action.value+' CM');
-					setTimeout(function () {eventEmitter.emit('drone_action');}, 2000);
+					this.back(0.1);
+					console.log('[SUCCESS] - ACTION PERFORMED : MOVE BACKWARD ON 0.1 CM');
+					setTimeout(function () {eventEmitter.emit('drone_action');}, self.setMovementTime(action.value));
 				});
 				break;
 
 			case EDirection_file.EDirection.Left.key :
-				drone.after(6000, function (){
-					this.counterClockwise(0.2);
-					this.front(  (action.value / 100 ) );
-					console.log('[SUCCESS] - ACTION PERFORMED : MOVE LEFT ON '+action.value+' CM');
-					setTimeout(function () {eventEmitter.emit('drone_action');}, 1000);
+				drone.after(2000, function (){
+					this.counterClockwise(0.5);
+					this.front(0.1);
+					console.log('movement time :' setMovementTime(action.value));
+					console.log('[SUCCESS] - ACTION PERFORMED : MOVE LEFT ON 0.1 CM');
+					setTimeout(function () {eventEmitter.emit('drone_action');}, self.setMovementTime(action.value));
 				});
 				break;
 
 			case EDirection_file.EDirection.Right.key :
-				drone.after(6000, function (){
-					this.clockwise(0.2);
-					this.front(  (action.value / 100 ) );
-					console.log('[SUCCESS] - ACTION PERFORMED : MOVE RIGHT ON '+action.value+' CM');
-					setTimeout(function () {eventEmitter.emit('drone_action');}, 1000);
+				drone.after(2000, function (){
+					this.clockwise(0.5);
+					this.front(0.1);
+					console.log('[SUCCESS] - ACTION PERFORMED : MOVE RIGHT ON 0.1 CM');
+					setTimeout(function () {eventEmitter.emit('drone_action');}, self.setMovementTime(action.value));
 				});
 				break;
 
@@ -94,17 +95,17 @@ Drone.prototype.execute = function (action){
 				if( heightSum >= this.maxHeight){
 					drone.after(1000, function() {
 						this.up(  ( ( self.maxHeight - self.currentHeight ) / 100 ) );
-						console.log('[SUCCESS] - ACTION PERFORMED : MOVE UP TO ' + self.maxHeight + ' CM');
+						console.log('[SUCCESS] - ACTION PERFORMED : MOVE UP TO 0.1 CM');
 						self.currentHeight = self.maxHeight;
-						setTimeout(function () {eventEmitter.emit('drone_action');}, 1000);
+						setTimeout(function () {eventEmitter.emit('drone_action');}, self.setMovementTime(action.value));
 					});	 
 				} else {
 					drone.after(1000, function() {
 						this.up(  (action.value / 100 ) );
 						var altitude = self.currentHeight + action.value;
-						console.log('[SUCCESS] - ACTION PERFORMED : MOVE UP TO ' + altitude + ' CM');
+						console.log('[SUCCESS] - ACTION PERFORMED : MOVE UP TO 0.1 CM');
 						self.currentHeight = altitude;
-						setTimeout(function () {eventEmitter.emit('drone_action');}, 1000);
+						setTimeout(function () {eventEmitter.emit('drone_action');},self.setMovementTime(action.value));
 					});
 				}
 				break;
@@ -114,13 +115,13 @@ Drone.prototype.execute = function (action){
 					drone.after(500, function() {
 						this.down(0.05);
 						console.log('[SUCCESS] - ACTION PERFORMED : MOVE DOWN TO 100 CM');
-						setTimeout(function () {eventEmitter.emit('drone_action');}, 1000);
+						setTimeout(function () {eventEmitter.emit('drone_action');}, self.setMovementTime(action.value));
 					});
 				} else {
 					drone.after(500, function() {
 						this.down(  (action.value / 100 ) );
 						console.log('[SUCCESS] - ACTION PERFORMED : MOVE DOWN TO ' + ( self.currentHeight - action.value ) + ' CM');
-						setTimeout(function () {eventEmitter.emit('drone_action');}, 1000);
+						setTimeout(function () {eventEmitter.emit('drone_action');}, self.setMovementTime(action.value));
 					});
 				}
 				break;
@@ -138,18 +139,18 @@ Drone.prototype.execute = function (action){
 
 					case EDirection_file.EDirection.Left.key :
 						drone.after(1000, function() {
-							this.counterClockwise((action.value / 100 ));
+							this.counterClockwise(0.5);
 							console.log('[SUCCESS] - ACTION PERFORMED : ROTATION LEFT OF '+action.value);
 							
-							setTimeout(function () {eventEmitter.emit('drone_action'); drone.stop(); }, 1000);
+							setTimeout(function () {eventEmitter.emit('drone_action'); drone.stop(); },self.setRotationTime(action.value););
 						});
 						break;
 
 					case EDirection_file.EDirection.Right.key :
 						drone.after(1000, function() {
-							this.clockwise( (action.value / 100 ));
+							this.clockwise(0.5);
 							console.log('[SUCCESS] - ACTION PERFORMED : ROTATION RIGHT OF '+action.value);
-							setTimeout(function () {eventEmitter.emit('drone_action'); drone.stop(); }, 1000);
+							setTimeout(function () {eventEmitter.emit('drone_action'); drone.stop(); },self.setRotationTime(action.value));
 						});
 						break;
 						
@@ -191,6 +192,16 @@ Drone.prototype.getMaxHeight = function(){
 // - Height setter
 Drone.prototype.setMaxHeight = function(height){
 	this.heightMax = height;
+}
+
+// - movements time
+Drone.getMovementTime = function(value){ // value:cm
+return (value*10);
+} 
+
+//- rotation time 
+Drone.getRotationTime = function(value){ // value:degree
+return (value*10);
 }
 
 module.exports = Drone;
