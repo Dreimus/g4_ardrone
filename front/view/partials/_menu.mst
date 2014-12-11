@@ -1,0 +1,10 @@
+<div id="bck_menu"></div>
+<div id="menu">
+  	<ul>
+      	<li id="flyWatcher" class="active"><a href="#">Suivi de vol</a></li>
+        <li id="createPlan"><a href="#">Création de parcours</a></li>
+        <li id="planList"><a href="#">Les plans</a></li>
+        <li id="history"><a href="#">Historique</a></li>
+        <li id="about"><a href="#">À propos</a></li>
+    </ul>
+</div>

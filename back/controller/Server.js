@@ -46,29 +46,21 @@ app.get('/', function(req, res){
   res.sendFile(path.resolve(frontPath + 'view/index.mst.html'));
 });
 
-// Route for loading Client.js
-app.get('/Client.js', function(req, res){
-  res.sendFile(path.resolve(frontPath + 'assets/js/Client.js'));
-});
+// Assets
+app.use('/assets', express.static(frontPath + 'assets/'));
 
-// Route for loading Partial.js
-app.get('/Partial.js', function(req, res){
-  res.sendFile(path.resolve(frontPath + 'assets/js/Partial.js'));
-});
-
-// Route for loading Helper.js
-app.get('/Helper.js', function(req, res){
-  res.sendFile(path.resolve(frontPath + 'assets/js/Helper.js'));
-});
-
-// Route for loading Page.js
-app.get('/Page.js', function(req, res){
-  res.sendFile(path.resolve(frontPath + 'assets/js/Page.js'));
-});
-
+// Partials
 app.get('/partials/createPlanForm', function(req, res){
   res.send(mstRender("front/view/partials/_createPlanForm.mst",
     {data: ETypeAction_file.ETypeAction.enums, data2: EDirection_file.EDirection.enums}));
+});
+
+app.get('/partials/menu', function(req, res){
+  res.send(mstRender("front/view/partials/_menu.mst"));
+});
+
+app.get('/partials/flyWatcher', function(req, res){
+  res.send(mstRender("front/view/partials/_flyWatcher.mst"));
 });
 
 // Sockets management

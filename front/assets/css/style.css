@@ -1,0 +1,170 @@
+@font-face {
+	font-family:"Moon Flower";
+	src:url("Moon_Flower.eot?") format("eot"),
+		url("Moon_Flower.woff") format("woff"),
+		url("Moon_Flower.ttf") format("truetype"),
+		url("Moon_Flower.svg#MoonFlower") format("svg");
+	font-weight:normal;font-style:normal;
+}
+
+body{
+	font-family : Helvetica, Arial, sans-serif;
+	width:1280px;
+	height:768px;
+	margin:auto;
+}
+
+a{
+	text-decoration:none;
+	color:inherit;
+}
+
+h1, h2, h3, h4, h5, h6{
+	font-family : "Moon Flower", Helvetica, Arial, sans-serif;
+}
+
+h1{
+	font-size:86px;
+	margin-bottom: 27px;
+}
+
+label{
+	font-size : 24px;
+	color : #1f3a93;
+}
+
+#bck_menu{
+	background:url(../img/LOGO.png) no-repeat;
+	height: 202px;
+	z-index:1;
+	width: 202px;
+	top: 0px;
+	position:relative;
+}
+
+
+#menu{
+	height:80px;
+	width:100%;
+	background: #000000 repeat-x;
+	color:#ffffff;
+	font-family : "Moon Flower", Helvetica, Arial, sans-serif;
+	font-size:36px;
+	position:relative;
+	z-index:0;
+	margin-top: -202px;
+	margin-bottom: 80px;
+}
+
+#menu ul {
+	padding-top: 22px;
+	padding-left: 104px;
+}
+#menu li {
+	display : inline; 
+	padding-left: 95px;
+}
+
+#menu li:hover{
+	color : #fa8e03; 
+}
+
+.active{
+	color : #fa8e03;
+}
+
+#social{
+	width: 143px;
+	background: url(../img/triangletransparent.png) no-repeat;
+	float: right;
+	padding-top: 65px;
+	display: block;
+	margin-top: 287px;
+}
+
+#plan {
+	width: 451px;
+	height: 466.5px;
+	border: solid 3px #000000;
+	margin-left: 80px;
+	float: left;
+	display: inline-block;
+}
+
+#liste_plans{
+	width: 627px;
+	height: 451px;
+	display: inline-block;
+	margin-left: 20px;
+	overflow: auto;
+	padding: 10px;
+	float: left;
+}
+
+#actions{
+	width: 627px;
+	height: 451px;
+	display: inline-block;
+	margin-left: 20px;
+	padding: 10px;
+	float: left;
+}
+
+#liste_plans ul {
+	padding: 16px;
+}
+
+#liste_plans ul li .miniature{
+	width: 150px;
+	height: 150px;
+	border: 1px solid #000000;
+	float: left;
+	margin: 160px;
+}
+
+#element_form{
+	float:left;
+	display:inline-block;
+}
+
+#social ul {
+	float: right;
+}
+
+
+#social ul li img{
+	display:block;
+	padding-bottom : 10px;
+	padding-right: 10px;
+}
+
+td, th{
+	text-align:center;
+	vertical-align:middle;
+	padding:5px;
+}
+
+#plus:hover{
+	cursor:pointer;
+}
+
+#fav{
+	float:right;
+	margin-right:50px;
+}
+
+input[type="submit"]{
+	color : #fff;
+	font-family:"Moon Flower", Helvetica, Arial, sans-serif;
+	font-size: 36px;
+	background-color : #1f3a93;
+	border-radius: 5px;
+}
+
+input[type="submit"]:hover{
+	cursor:pointer;
+}
+
+
+
+
