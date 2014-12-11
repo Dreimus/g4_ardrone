@@ -49,7 +49,7 @@ Drone.prototype.execute = function (action){
 	// console.log('DEBUG : drone.execute()');
 	// Type action evaluation
 	var currentState = {maxHeight: this.maxHeight};
-
+	var self = this;
 	switch(action.type){
 		case ETypeAction_file.ETypeAction.Move.key : 
 			//Direction Evaluation				
@@ -91,32 +91,15 @@ Drone.prototype.execute = function (action){
 
 			case EDirection_file.EDirection.Up.key :
 				var heightSum = this.currentHeight + action.value;
-				if( heightSum <= this.maxHeight){
-					
+				if( heightSum >= this.maxHeight){
 					drone.after(2000, function() {
-						// var isWaiting = true;
-						// var maxHeight_local = undefined;
-						console.log("2 : " + currentState.maxHeight);
-						// eventEmitter.emit("getValue");
-						// eventEmitter.on("getValueResponse" , function(data){
-						// 	maxHeight_local = data.maxHeight;
-						// 	isWaiting = false;
-						// });
-
-
-						// while (isWaiting) {
-							
-						// }
-
-						// console.log(maxHeight_local);
-
-						// this.up(  ( ( self.maxHeight - self.currentHeight ) / 100 ) );
-						// console.log('[SUCCESS] - ACTION PERFORMED : MOVE UP TO ' + self.maxHeight + ' CM');
-						// self.currentHeight = self.maxHeight;
-						// eventEmitter.emit('drone_action');
+						this.up(  ( ( self.maxHeight - self.currentHeight ) / 100 ) );
+						console.log('[SUCCESS] - ACTION PERFORMED : MOVE UP TO ' + self.maxHeight + ' CM');
+						self.currentHeight = self.maxHeight;
+						eventEmitter.emit('drone_action');
 					});	 
 				} else {
-					drone.after(2000, function(self) {
+					drone.after(2000, function() {
 						this.up(  (action.value / 100 ) );
 						var altitude = self.currentHeight + action.value;
 						console.log('[SUCCESS] - ACTION PERFORMED : MOVE UP TO ' + altitude + ' CM');
@@ -127,11 +110,19 @@ Drone.prototype.execute = function (action){
 				break;
 
 			case EDirection_file.EDirection.Down.key :
-				drone.after(2000, function() {
-					this.down(  (action.value / 100 ) );
-					console.log('[SUCCESS] - ACTION PERFORMED : MOVE DOWN TO ' + ( self.currentHeight - action.value ) + ' CM');
-					eventEmitter.emit('drone_action');
-				});
+				if( this.currentHeight - action.value <= 0 ){
+					drone.after(2000, function() {
+						this.down(0.05);
+						console.log('[SUCCESS] - ACTION PERFORMED : MOVE DOWN TO 100 CM');
+						eventEmitter.emit('drone_action');
+					});
+				} else {
+					drone.after(2000, function() {
+						this.down(  (action.value / 100 ) );
+						console.log('[SUCCESS] - ACTION PERFORMED : MOVE DOWN TO ' + ( self.currentHeight - action.value ) + ' CM');
+						eventEmitter.emit('drone_action');
+					});
+				}
 				break;
 
 			default: 
