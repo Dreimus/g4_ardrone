@@ -50,10 +50,37 @@ app.get('/', function(req, res){
 app.use('/assets', express.static(frontPath + 'assets/'));
 
 // Partials
-app.get('/partials/createPlanForm', function(req, res){
-  res.send(mstRender("front/view/partials/_createPlanForm.mst",
-    {data: ETypeAction_file.ETypeAction.enums, data2: EDirection_file.EDirection.enums}));
+app.get('/partials/tableStructure', function(req, res){
+  res.send(mstRender("front/view/partials/planForm/_tableStructure.mst",
+    {datas: [
+      {
+        data: ETypeAction_file.ETypeAction.enums,
+        data2: EDirection_file.EDirection.enums
+      },
+      {
+        data: ETypeAction_file.ETypeAction.enums,
+        data2: EDirection_file.EDirection.enums
+      }
+      ],
+        EnumType: ETypeAction_file.ETypeAction.enums,
+        EnumDirection: EDirection_file.EDirection.enums,
+      isSelected: true
+  }));
 });
+
+// app.get('/partials/lineToRepeat', function(req, res){
+//   res.send(mstRender("front/view/partials/planForm/_lineToRepeat.mst",
+//     {datas: [
+//       {
+//         data: ETypeAction_file.ETypeAction.enums,
+//         data2: EDirection_file.EDirection.enums
+//       },
+//       {
+//         data: ETypeAction_file.ETypeAction.enums,
+//         data2: EDirection_file.EDirection.enums
+//       }
+//     ]}));
+// });
 
 app.get('/partials/menu', function(req, res){
   res.send(mstRender("front/view/partials/_menu.mst"));

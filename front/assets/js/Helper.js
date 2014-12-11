@@ -25,8 +25,7 @@ function createNodeArea(parent, name, cc) {
   }
   
   var node = document.createElement("div");
-  node.id = "name";
-  //parent.innerHTML += '<div id="' + name + '"></div>';
+  node.id = name;
   parent.appendChild(node);
   return node;
 }

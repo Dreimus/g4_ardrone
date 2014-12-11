@@ -1,6 +1,7 @@
 function Page() {
   var self = this;
   this.pageObject = {title: undefined, nodes: [], partials: []};
+  this.pageLogic = undefined;
 }
 
 // Set Title
@@ -29,11 +30,11 @@ Page.prototype.addNode = function(nodeName) {
 //   return this;
 // }
 
-// Page.prototype.generateNodes = function(parent) {
-//   this.parent['nodes'].forEach(function(value, key){
-//     createNodeArea(parent, value);
-//   });
-// }
+Page.prototype.generateNodes = function(parent) {
+  this.pageObject['nodes'].forEach(function(value, key){
+    createNodeArea(parent, value);
+  });
+}
 
 Page.prototype.addPartial = function(partialName) {
   this.pageObject['partials'].push(partialName);
@@ -49,4 +50,8 @@ Page.prototype.load = function() {
   this.pageObject['partials'].forEach(function(value, key){
     getPartial(value);
   });
+}
+
+Page.prototype.executeLogic = function() {
+  this.pageLogic();
 }

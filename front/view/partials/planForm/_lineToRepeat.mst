@@ -1,0 +1,35 @@
+{{#datas}}
+<tr>
+  <td>
+    <select name="type">
+      {{#data}}
+        <option value="{{value}}">
+          {{key}}
+        </option>
+      {{/data}}
+    </select>
+  
+
+  </td>
+
+
+  <td>
+    <select>
+      {{#data2}}
+        <option value="{{value}}">
+          {{key}}
+        </option>
+      {{/data2}}
+    </select>
+
+  </td>
+
+  <td>
+    <input type="text" name="valeur">
+  </td>
+
+  <td>
+    <img id="plus" src="assets/img/plus.png">
+  </td>
+</tr>
+{{/datas}}
