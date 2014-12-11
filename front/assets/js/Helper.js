@@ -19,13 +19,16 @@ function addPartial(parent, name) {
   parent.innerHTML += getPartial(name);
 }
 
-function createNodeArea(parent, name) {
+function createNodeArea(parent, name, cc) {
   if (document.querySelector('#' + name) !== undefined && document.querySelector('#' + name) !== null) {
     document.querySelector('#' + name).remove();
   }
   
-  parent.innerHTML += '<div id="' + name + '"></div>';
-  return document.querySelector("#" + name);
+  var node = document.createElement("div");
+  node.id = "name";
+  //parent.innerHTML += '<div id="' + name + '"></div>';
+  parent.appendChild(node);
+  return node;
 }
 
 // Return a partial data

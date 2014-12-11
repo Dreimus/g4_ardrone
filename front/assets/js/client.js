@@ -50,14 +50,9 @@ window.onload = function () {
   // Load directly the menu as it's a constant partial/node of the pages 
   window.menuNode = createNodeArea(window.app, "menuNode");
   addPartial(menuNode, "menu");
+  window.pageContent = createNodeArea(window.app, "pageContent");
   
-  
-  //window.pageContent = createNodeArea(window.app, "pageContent");
-  // Register event click for menu navigation
-  console.log(menuNode.querySelector("#flyWatcher"));
-  
-  menuNode.querySelector("#flyWatcher").addEventListener("click", function () {console.log("evnetListener")}, false);
-  
+  // Register event click for menu navigation 
   menuNode.querySelector("#flyWatcher").onclick = function(e) {console.log("truc"); changePage(e, "flyWatcher");};
   menuNode.querySelector("#createPlan").onclick = function(e) {console.log("truc"); changePage(e, "createPlan");};
   menuNode.querySelector("#planList").onclick = function(e) {changePage(e, "planList");};
