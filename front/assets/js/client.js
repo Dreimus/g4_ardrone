@@ -53,14 +53,47 @@ function createPlanPageLogic (){
   
   partialDOM.innerHTML = getPartial("tableStructure");
   tableStructure = partialDOM.innerHTML;
-  partialDOM.innerHTML = getPartial("lineToRepeat");
-  lineToRepeat = partialDOM.innerHTML;
+  
+  lineToRepeat = getPartial("lineToRepeat");
   
   console.log(getPartial("tableStructure"));
   
   action.innerHTML = tableStructure;
-  // action.innerHTML += lineToRepeat;
+  action.querySelector("#submitFormPlan").onclick = function(e) {sendPlan(e);};
+  
+  var tdbody = action.querySelector("#forRepeat");
+  tdbody.innerHTML += lineToRepeat;
+}
 
+// Add a new line in createPlanForm
+function addNewLine(obj){
+  app.querySelector("#forRepeat").innerHTML += getPartial("lineToRepeat");
+}
+
+// Remove the line (match via "this")
+function removeParentTR(obj) {
+  var currentParent = obj.parentNode;
+
+  while (currentParent.tagName !== "TR") {
+    currentParent = currentParent.parentNode;
+  }
+  
+  currentParent.remove();
+}
+
+function sendPlan(e){
+  e.preventDefault();
+  e.stopPropagation();
+
+  var dataForm = $("#formPlan").serializeArray(),
+    dataJson = {title: dataForm[0].value, data: []};
+  
+  for (var i = 1; i < dataForm.length; i++) {
+    dataJson.data.push(dataForm[i]);
+  }
+  
+  socket.emit("createPlan", dataJson);
+  
 }
 
 window.onload = function () {
@@ -79,7 +112,6 @@ window.onload = function () {
   menuNode.querySelector("#planList").onclick = function(e) {changePage(e, "planList");};
   menuNode.querySelector("#history").onclick = function(e) {changePage(e, "history");};
   menuNode.querySelector("#about").onclick = function(e) {changePage(e, "about");};
-
   
   // req2.open('GET', 'http://localhost:13000/menu', false);
   // req2.onreadystatechange = function (aEvt) {

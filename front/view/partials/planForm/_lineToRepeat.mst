@@ -1,25 +1,22 @@
-{{#datas}}
 <tr>
   <td>
     <select name="type">
-      {{#data}}
-        <option value="{{value}}">
-          {{key}}
-        </option>
-      {{/data}}
+      {{#EnumType}}
+          <option value="{{value}}">
+            {{key}}
+          </option>
+      {{/EnumType}}
     </select>
-  
-
   </td>
 
 
   <td>
-    <select>
-      {{#data2}}
+    <select name="direction">
+      {{#EnumDirection}}
         <option value="{{value}}">
           {{key}}
         </option>
-      {{/data2}}
+      {{/EnumDirection}}
     </select>
 
   </td>
@@ -29,7 +26,7 @@
   </td>
 
   <td>
-    <img id="plus" src="assets/img/plus.png">
+    <img onclick="addNewLine(this)" id="plus" src="/assets/img/plus.png">
+    <img onclick="removeParentTR(this)" id="plus" src="/assets/img/moins.png">
   </td>
 </tr>
-{{/datas}}

@@ -51,21 +51,12 @@ app.use('/assets', express.static(frontPath + 'assets/'));
 
 // Partials
 app.get('/partials/tableStructure', function(req, res){
-  res.send(mstRender("front/view/partials/planForm/_tableStructure.mst",
-    {datas: [
-      {
-        data: ETypeAction_file.ETypeAction.enums,
-        data2: EDirection_file.EDirection.enums
-      },
-      {
-        data: ETypeAction_file.ETypeAction.enums,
-        data2: EDirection_file.EDirection.enums
-      }
-      ],
-        EnumType: ETypeAction_file.ETypeAction.enums,
-        EnumDirection: EDirection_file.EDirection.enums,
-      isSelected: true
-  }));
+  res.send(mstRender("front/view/partials/planForm/_tableStructure.mst"));
+});
+
+app.get('/partials/lineToRepeat', function(req, res){
+  res.send(mstRender("front/view/partials/planForm/_lineToRepeat.mst",
+    { EnumType: ETypeAction_file.ETypeAction.enums, EnumDirection: EDirection_file.EDirection.enums }));
 });
 
 // app.get('/partials/lineToRepeat', function(req, res){
@@ -92,15 +83,31 @@ app.get('/partials/flyWatcher', function(req, res){
 
 // Sockets management
 io.sockets.on('connection', function (socket){
-  console.log("coucou new connexion");
+  
+  // Save the plan into the DataBase
+  socket.on("createPlan", function(data){
+    
+    var dataForm = data.data, 
+      plan = new Plan(data.title),
+      type = undefined,
+      direction = undefined,
+      value = undefined;
+
+    for(var i = 0; i < dataForm.length; i++){
+      if (i % 3 === 0) {
+        type = ETypeAction_file.ETypeAction.get(parseInt(dataForm[i].value)).key;
+      } else if (i % 3 === 1) {
+        direction = EDirection_file.EDirection.get(parseInt(dataForm[i].value)).key;
+      } else if (i % 3 === 2) {
+        value = dataForm[i].value;
+        plan.addAction(new DroneAction(type, direction, value));
+      }
+    }
+    
+    plan.savePlan();    
+  });
+  
 });
-
-var p = new Plan("Plan4");
-p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 10));
-p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move, EDirection_file.EDirection.Forward, 20));
-p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Rotation, EDirection_file.EDirection.Forward, 20));
-
-console.log(p.getFlyActionList()[0].type);
 
 // p.name = "truc";
 // p.savePlan();
