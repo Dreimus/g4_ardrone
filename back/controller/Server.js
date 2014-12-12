@@ -81,6 +81,10 @@ app.get('/partials/flyWatcher', function(req, res){
   res.send(mstRender("front/view/partials/_flyWatcher.mst"));
 });
 
+app.get('/partials/title', function(req, res){
+  res.send(mstRender("front/view/partials/_title.mst"));
+});
+
 // Sockets management
 io.sockets.on('connection', function (socket){
   
@@ -105,6 +109,10 @@ io.sockets.on('connection', function (socket){
     }
     
     plan.savePlan();    
+  });
+  
+  socket.on("droneStart", function() {
+    
   });
   
 });

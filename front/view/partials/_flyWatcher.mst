@@ -1,0 +1,64 @@
+<button onclick="droneStopEmergency()" type="submit" id="urgence">Arrêt d'urgence</button>
+
+<div id="suivi_video">
+	
+</div>
+
+<div id="carte">
+	
+</div>
+
+<div id="commandes">
+	<center>
+        <button onclick="droneStart()" type="submit" class="ordre" id="start">Start</button>
+        <button onclick="droneStop()" type="submit" class="ordre" id="stop">Stop</button>
+        <button type="submit" class="ordre" id="download">Télécharger</button>	
+    </center>
+</div>
+
+<div id="infos">
+	<div class="item">
+    	<h3>Altitude</h3>
+        <div id="altitude">
+        	<h3>2m</h3>
+        </div>
+        
+    </div>
+    <div class="item">
+    	<h3>Vitesse</h3>
+        	<div id="vitesse">
+            	<img id="fleche_vitesse" src="assets/img/fleche.png">
+                <h3><span id="valeur_vitesse">0</span> M/s</h3>
+            </div>
+    </div>
+    <div class="item">
+    <h3>Batterie</h3>
+    	<h3><span id="charge">100</span>%</h3>
+    	<div id="battery">
+        	
+        	<center><img class="level" id="battery10" src="assets/img/battery_top.png">
+            <img class="level" id="battery9" src="assets/img/battery_green.png">
+		<img class="level" id="battery8" src="assets/img/battery_green.png">
+            <img class="level" id="battery7" src="assets/img/battery_green.png">
+            <img class="level" id="battery6" src="assets/img/battery_orange.png">
+            <img class="level" id="battery5" src="assets/img/battery_orange.png">
+            <img class="level" id="battery4" src="assets/img/battery_orange.png">
+            <img class="level" id="battery3" src="assets/img/battery_red.png">
+            <img class="level" id="battery2" src="assets/img/battery_red.png">
+            <img class="level" id="battery1" src="assets/img/battery_red.png"></center>
+        </div>
+        
+        
+        
+        
+    </div>
+    <div class="item">
+    	<h3>Rotation</h3>
+        <div id="rotation">
+        	<img id="fleche_rotation" src ="assets/img/fleche_rotation.png">
+        </div>
+        <h3 style="margin-top: -15px;"><span id="valeur_rotation">286</span>°</h3>
+   	</div>
+    	
+    
+</div>

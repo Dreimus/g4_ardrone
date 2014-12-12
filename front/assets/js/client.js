@@ -21,8 +21,13 @@ function testClick() {
 }
 
 function changePage(e, pageName) {
-  e.preventDefault();
-  e.stopPropagation();
+  
+  if (e !== undefined && e !== null){
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+
   cleanNode(pageContent);
   
   var page = pages[pageName];
@@ -30,11 +35,19 @@ function changePage(e, pageName) {
   if (page !== undefined) {
     page.load();
     document.title = page.getTitle();
+    document.querySelector("#pageTitle").innerHTML = page.getTitle();
+    
     menuNode.querySelector(".active").classList.remove("active");
     menuNode.querySelector("#" + pageName).classList.add("active");
     
     page.generateNodes(pageContent);
-    page.pageLogic = createPlanPageLogic;
+    
+    if (pageName === "createPlan") {
+      page.pageLogic = createPlanPageLogic;
+    } else if (pageName === "flyWatcher") {
+      page.pageLogic = createFlyWatcherLogic;
+    }
+    
     page.executeLogic();
     
   } else {
@@ -63,6 +76,12 @@ function createPlanPageLogic (){
   
   var tdbody = action.querySelector("#forRepeat");
   tdbody.innerHTML += lineToRepeat;
+}
+
+// Handle the logic of flyWatcher
+function createFlyWatcherLogic(){
+  pageContent.innerHTML = getPartial("flyWatcher");
+  
 }
 
 // Add a new line in createPlanForm
@@ -96,6 +115,10 @@ function sendPlan(e){
   
 }
 
+function droneStart(){
+  socket.emit("droneStart");
+}
+
 window.onload = function () {
   
   window.app = document.querySelector("#app");
@@ -104,6 +127,10 @@ window.onload = function () {
   // Load directly the menu as it's a constant partial/node of the pages 
   window.menuNode = createNodeArea(window.app, "menuNode");
   addPartial(menuNode, "menu");
+  
+  window.title = createNodeArea(window.app, "title");
+  addPartial(title, "title");
+  
   window.pageContent = createNodeArea(window.app, "pageContent");
   
   // Register event click for menu navigation 
@@ -112,6 +139,9 @@ window.onload = function () {
   menuNode.querySelector("#planList").onclick = function(e) {changePage(e, "planList");};
   menuNode.querySelector("#history").onclick = function(e) {changePage(e, "history");};
   menuNode.querySelector("#about").onclick = function(e) {changePage(e, "about");};
+  
+  // Set index page content to flyWatcher
+  changePage(null, "flyWatcher");
   
   // req2.open('GET', 'http://localhost:13000/menu', false);
   // req2.onreadystatechange = function (aEvt) {
