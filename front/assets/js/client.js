@@ -116,6 +116,21 @@ function sendPlan(e){
 }
 
 function droneStart(){
+
+	function startArDRoneStream() {
+        new NodecopterStream(document.getElementById("placeholder"), {port: 3001});
+		/*port 13000*/
+	}
+	
+	function startArDroneController(){
+		window.socket2 = io.connect('http://localhost:3002');
+		socket2.on('connect', function () {
+		   console.log("Connection Successful");
+		});		
+	}
+	startArDRoneStream();
+	startArDroneController();
+
   socket.emit("droneStart", 
     {planName: document.querySelector("#listPlan").options[
         document.querySelector("#listPlan").selectedIndex
@@ -123,10 +138,12 @@ function droneStart(){
 }
 
 function droneStop(){
+  window.socket2.close();
   socket.emit("droneStop");
 }
 
 function droneStopEmergency(){
+  window.socket2.close();
   socket.emit("droneStopEmergency");
 }
 

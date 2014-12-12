@@ -140,7 +140,7 @@ io.sockets.on('connection', function (socket){
   
   socket.on("droneStart", function(data) {
     global.dc = undefined;
-    
+    require("dronestream").listen(3001);  
     var p = new Plan(data.planName);
     // p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move.key, EDirection_file.EDirection.Backward.key, 100));
     // p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move.key, EDirection_file.EDirection.Forward.key, 100));

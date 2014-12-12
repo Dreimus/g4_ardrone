@@ -1,7 +1,8 @@
 <button onclick="droneStopEmergency()" type="submit" id="urgence">Arrêt d'urgence</button>
 
 <div id="suivi_video">
-	
+
+	<div id="placeholder"></div>
 </div>
 
 <div id="carte">
