@@ -96,18 +96,23 @@ Drone.prototype.execute = function (action){
 				break;
 
 			case EDirection_file.EDirection.Up.key :
-				var heightSum = this.currentHeight + action.value;
+				var heightSum = this.currentHeight + parseInt(action.value);
 				if( heightSum >= this.maxHeight){
-					drone.after(500, function() {
-						this.up(  ( ( self.maxHeight - self.currentHeight ) / 100 ) );
-						console.log('- movement time :'+self.getMovementTime(action.value));
-						console.log('[SUCCESS] - ACTION PERFORMED : MOVE UP TO 0.1 CM');
-						self.currentHeight = self.maxHeight;
-						setTimeout(function () {drone.stop(); eventEmitter.emit('drone_action');}, self.getMovementTime(action.value));
-					});	 
+					// drone.after(500, function() {
+//             this.up(0.1);
+//             console.log('- movement time :'+self.getMovementTime(action.value));
+//             console.log('[SUCCESS] - ACTION PERFORMED : MOVE UP TO 0.1 CM');
+//             self.currentHeight = self.maxHeight;
+//             setTimeout(function () {drone.stop(); eventEmitter.emit('drone_action');}, 500);
+//           });
+console.log(this.currentHeight);
+        console.log(heightSum);
+          console.log("Can't move up (Max Heigth)");
+          drone.stop();
+          eventEmitter.emit('drone_action');
 				} else {
 					drone.after(500, function() {
-						this.up(  (action.value / 100 ) );
+						this.up(0.5);
 						var altitude = self.currentHeight + action.value;
 						console.log('- movement time :'+self.getMovementTime(action.value));
 						console.log('[SUCCESS] - ACTION PERFORMED : MOVE UP TO 0.1 CM');
@@ -118,16 +123,19 @@ Drone.prototype.execute = function (action){
 				break;
 
 			case EDirection_file.EDirection.Down.key :
-				if( this.currentHeight - action.value <= 0 ){
-					drone.after(500, function() {
-						this.down(0.05);
-						console.log('- movement time :'+self.getMovementTime(action.value));
-						console.log('[SUCCESS] - ACTION PERFORMED : MOVE DOWN TO 100 CM');
-						setTimeout(function () {drone.stop(); eventEmitter.emit('drone_action');}, self.getMovementTime(action.value));
-					});
+				if( this.currentHeight - parseInt(action.value) <= 0 ){
+					// drone.after(500, function() {
+//             this.down(0.05);
+//             console.log('- movement time :'+self.getMovementTime(action.value));
+//             console.log('[SUCCESS] - ACTION PERFORMED : MOVE DOWN TO 100 CM');
+//             setTimeout(function () {drone.stop(); eventEmitter.emit('drone_action');}, self.getMovementTime(action.value));
+//           });
+            console.log("Can't move up (Underground)");
+            drone.stop();
+            eventEmitter.emit('drone_action');
 				} else {
 					drone.after(500, function() {
-						this.down(  (action.value / 100 ) );
+						this.down(0.5);
 						console.log('- movement time :'+self.getMovementTime(action.value));
 						console.log('[SUCCESS] - ACTION PERFORMED : MOVE DOWN TO ' + ( self.currentHeight - action.value ) + ' CM');
 						setTimeout(function () {drone.stop(); eventEmitter.emit('drone_action');}, self.getMovementTime(action.value));

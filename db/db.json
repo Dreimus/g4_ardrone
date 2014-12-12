@@ -199,6 +199,41 @@
           "value": "8"
         }
       ]
+    },
+    {
+      "name": "Up50",
+      "actionList": [
+        {
+          "type": "Move",
+          "direction": "Up",
+          "value": "50"
+        }
+      ]
+    },
+    {
+      "name": "Up100",
+      "actionList": [
+        {
+          "type": "Move",
+          "direction": "Up",
+          "value": "100"
+        }
+      ]
+    },
+    {
+      "name": "Up100Down100",
+      "actionList": [
+        {
+          "type": "Move",
+          "direction": "Up",
+          "value": "100"
+        },
+        {
+          "type": "Move",
+          "direction": "Down",
+          "value": "100"
+        }
+      ]
     }
   ]
 }

@@ -146,7 +146,7 @@ io.sockets.on('connection', function (socket){
     // p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move.key, EDirection_file.EDirection.Forward.key, 100));
     // p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Rotate.key, EDirection_file.EDirection.Right.key, 40));
     global.dc = new DroneController();
-    dc.init(130);
+    dc.init(210);
     dc.setPlan(p);
     dc.start();
   });
