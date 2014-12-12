@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Dreimus/g4_ardrone",
   "dependencies": {
     "ar-drone": "^0.3.3",
+    "ardrone-autonomy": "^0.1.2",
     "enum": "^0.2.6",
     "express": "^4.10.4",
     "jade": "^1.8.1",

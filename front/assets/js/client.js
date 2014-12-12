@@ -119,6 +119,14 @@ function droneStart(){
   socket.emit("droneStart");
 }
 
+function droneStop(){
+  socket.emit("droneStop");
+}
+
+function droneStopEmergency(){
+  socket.emit("droneStopEmergency");
+}
+
 window.onload = function () {
   
   window.app = document.querySelector("#app");

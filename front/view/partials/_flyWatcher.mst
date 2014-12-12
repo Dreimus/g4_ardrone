@@ -12,7 +12,7 @@
 	<center>
         <button onclick="droneStart()" type="submit" class="ordre" id="start">Start</button>
         <button onclick="droneStop()" type="submit" class="ordre" id="stop">Stop</button>
-        <button type="submit" class="ordre" id="download">Télécharger</button>	
+        <button type="submit" class="ordre" id="download">Télécharger</button>
     </center>
 </div>
 

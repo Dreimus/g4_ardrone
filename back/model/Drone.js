@@ -56,61 +56,63 @@ Drone.prototype.execute = function (action){
 			switch(action.direction){
 
 			case EDirection_file.EDirection.Forward.key :
-				drone.after(1000, function(){
+				drone.after(500, function(){
 					this.front(0.1);
 					console.log('- movement time :'+self.getMovementTime(action.value));
 					console.log('[SUCCESS] - ACTION PERFORMED : MOVE FORWARD ON 0.1 CM');
-					setTimeout(function () {eventEmitter.emit('drone_action'); drone.stop();}, self.getMovementTime(action.value));
+					setTimeout(function () {drone.stop(); eventEmitter.emit('drone_action');}, self.getMovementTime(action.value));
 				});
 				break;
 
 			case EDirection_file.EDirection.Backward.key :
-				drone.after(1000, function (){
+				drone.after(500, function (){
 					this.back(0.1);
 					console.log('- movement time :'+self.getMovementTime(action.value));
 					console.log('[SUCCESS] - ACTION PERFORMED : MOVE BACKWARD ON 0.1 CM');
-					setTimeout(function () {eventEmitter.emit('drone_action');}, self.getMovementTime(action.value));
+					setTimeout(function () {drone.stop(); eventEmitter.emit('drone_action');}, self.getMovementTime(action.value));
 				});
 				break;
 
 			case EDirection_file.EDirection.Left.key :
-				drone.after(2000, function (){
-					this.counterClockwise(0.5);
-					this.front(0.1);
+				drone.after(500, function (){
+          // this.counterClockwise(0.5);
+          // this.front(0.1);
+          this.left(0.1);
 					console.log('- movement time :'+self.getMovementTime(action.value));
 					console.log('[SUCCESS] - ACTION PERFORMED : MOVE LEFT ON 0.1 CM');
-					setTimeout(function () {eventEmitter.emit('drone_action');}, self.getMovementTime(action.value));
+					setTimeout(function () {drone.stop(); eventEmitter.emit('drone_action');}, self.getMovementTime(action.value));
 				});
 				break;
 
 			case EDirection_file.EDirection.Right.key :
-				drone.after(2000, function (){
-					this.clockwise(0.5);
-					this.front(0.1);
+				drone.after(500, function (){
+          // this.clockwise(0.5);
+          // this.front(0.1);
+          this.right(0.1);
 					console.log('- movement time :'+self.getMovementTime(action.value));
 					console.log('[SUCCESS] - ACTION PERFORMED : MOVE RIGHT ON 0.1 CM');
-					setTimeout(function () {eventEmitter.emit('drone_action');}, self.getMovementTime(action.value));
+					setTimeout(function () {drone.stop(); eventEmitter.emit('drone_action');}, self.getMovementTime(action.value));
 				});
 				break;
 
 			case EDirection_file.EDirection.Up.key :
 				var heightSum = this.currentHeight + action.value;
 				if( heightSum >= this.maxHeight){
-					drone.after(1000, function() {
+					drone.after(500, function() {
 						this.up(  ( ( self.maxHeight - self.currentHeight ) / 100 ) );
 						console.log('- movement time :'+self.getMovementTime(action.value));
 						console.log('[SUCCESS] - ACTION PERFORMED : MOVE UP TO 0.1 CM');
 						self.currentHeight = self.maxHeight;
-						setTimeout(function () {eventEmitter.emit('drone_action');}, self.getMovementTime(action.value));
+						setTimeout(function () {drone.stop(); eventEmitter.emit('drone_action');}, self.getMovementTime(action.value));
 					});	 
 				} else {
-					drone.after(1000, function() {
+					drone.after(500, function() {
 						this.up(  (action.value / 100 ) );
 						var altitude = self.currentHeight + action.value;
 						console.log('- movement time :'+self.getMovementTime(action.value));
 						console.log('[SUCCESS] - ACTION PERFORMED : MOVE UP TO 0.1 CM');
 						self.currentHeight = altitude;
-						setTimeout(function () {eventEmitter.emit('drone_action');},self.getMovementTime(action.value));
+						setTimeout(function () {drone.stop(); eventEmitter.emit('drone_action');},self.getMovementTime(action.value));
 					});
 				}
 				break;
@@ -121,14 +123,14 @@ Drone.prototype.execute = function (action){
 						this.down(0.05);
 						console.log('- movement time :'+self.getMovementTime(action.value));
 						console.log('[SUCCESS] - ACTION PERFORMED : MOVE DOWN TO 100 CM');
-						setTimeout(function () {eventEmitter.emit('drone_action');}, self.getMovementTime(action.value));
+						setTimeout(function () {drone.stop(); eventEmitter.emit('drone_action');}, self.getMovementTime(action.value));
 					});
 				} else {
 					drone.after(500, function() {
 						this.down(  (action.value / 100 ) );
 						console.log('- movement time :'+self.getMovementTime(action.value));
 						console.log('[SUCCESS] - ACTION PERFORMED : MOVE DOWN TO ' + ( self.currentHeight - action.value ) + ' CM');
-						setTimeout(function () {eventEmitter.emit('drone_action');}, self.getMovementTime(action.value));
+						setTimeout(function () {drone.stop(); eventEmitter.emit('drone_action');}, self.getMovementTime(action.value));
 					});
 				}
 				break;
@@ -149,7 +151,7 @@ Drone.prototype.execute = function (action){
 							this.counterClockwise(0.5);
 							console.log('- movement time :'+self.getMovementTime(action.value));
 							console.log('[SUCCESS] - ACTION PERFORMED : ROTATION LEFT OF '+action.value);
-							setTimeout(function () {eventEmitter.emit('drone_action'); drone.stop(); },self.getRotationTime(action.value));
+							setTimeout(function () {drone.stop(); eventEmitter.emit('drone_action');},self.getRotationTime(action.value));
 						});
 						break;
 
@@ -158,7 +160,7 @@ Drone.prototype.execute = function (action){
 							this.clockwise(0.5);
 							console.log('- movement time :'+self.getMovementTime(action.value));
 							console.log('[SUCCESS] - ACTION PERFORMED : ROTATION RIGHT OF '+action.value);
-							setTimeout(function () {eventEmitter.emit('drone_action'); drone.stop(); },self.getRotationTime(action.value));
+							setTimeout(function () {drone.stop(); eventEmitter.emit('drone_action');},self.getRotationTime(action.value));
 						});
 						break;
 						
@@ -203,7 +205,7 @@ Drone.prototype.setMaxHeight = function(height){
 
 // - movements time
 Drone.prototype.getMovementTime = function(value){ // value:cm
-return (value*10);
+return (value*30);
 };
 
 //- rotation time 

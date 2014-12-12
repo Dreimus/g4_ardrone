@@ -39,7 +39,7 @@ function DroneController() {
 	eventEmitter.on('drone_stop', function() {
 		console.log(" - DRONE IS LANDING ");
 	});
-	eventEmitter.on('drone_stopEmergency', function() {console.log(" - EMERGENCY : DRONE STOPPED ")});
+	eventEmitter.on('drone_stopEmergency', function() {drone.stopFlight(); console.log(" - EMERGENCY : DRONE STOPPED ")});
 }
 
 // - Flight initialization

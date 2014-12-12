@@ -1,0 +1,7 @@
+<select name="direction">
+  {{#EnumDirection}}
+    <option value="{{value}}">
+      {{key}}
+    </option>
+  {{/EnumDirection}}
+</select>
