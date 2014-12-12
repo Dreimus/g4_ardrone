@@ -1,3 +1,1 @@
-exports.ETypeAction = new Enum(["Move",
-  "Rotation"
-]);
+exports.ETypeAction = new Enum(["Move", "Rotate"]);

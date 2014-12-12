@@ -1,3 +1,13 @@
+/*-------------------------------------------------*\
+                      SERVER.JS
+
+  Description : 
+
+  This file create the interaction between 
+  website remote control and the device's
+  Controller.
+
+\*-------------------------------------------------*/
 var express = require('express'),
   app = express(),
   port = 13000,
@@ -24,6 +34,10 @@ global.fs = require('fs');
 
 global.events = require('events'),
 global.eventEmitter = new events.EventEmitter(),
+
+
+global.DroneController = require(rootPath + 'back/controller/DroneController');
+global.Drone = require(rootPath + 'back/model/Drone');
 
 global.Enum = require('enum');
 global.ETypeAction_file = require(rootPath + "common/enum/ETypeAction.js");
@@ -117,16 +131,29 @@ io.sockets.on('connection', function (socket){
   
 });
 
-// p.name = "truc";
-// p.savePlan();
+// Some logging for informations
+console.log(" - Server started on port " + port);
+console.log(" - Front path : " + frontPath);
 
-//console.log("Exist : " + Plan.exist("Plan4"));
-// console.log(p);
-//
-// console.log(p);
-//
-// console.log(EDirection_file.EDirection.enums);
-//
+// --------------------- MAIN TRIES --------------------------
+var p = new Plan("Plan4");
+// p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move.key, EDirection_file.EDirection.Forward.key, 30));
+// p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move.key, EDirection_file.EDirection.Backward.key, 5));
+// p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move.key, EDirection_file.EDirection.Up.key, 0.2));
+// p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move.key, EDirection_file.EDirection.Down.key, 4));
+// p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move.key, EDirection_file.EDirection.Left.key, 5));
+// p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move.key, EDirection_file.EDirection.Right.key, 6));
+// p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Rotate.key, EDirection_file.EDirection.Right.key, 8));
+p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Rotate.key, EDirection_file.EDirection.Left.key, 40));
+p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Rotate.key, EDirection_file.EDirection.Right.key, 40));
+
+// --
+
+var dc = new DroneController();
+dc.init(130);
+dc.setPlan(p);
+dc.start();
+
 
 // var view = {
 //   title: "Joe",
