@@ -234,6 +234,16 @@
           "value": "100"
         }
       ]
+    },
+    {
+      "name": "testVideo",
+      "actionList": [
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": ""
+        }
+      ]
     }
   ]
 }
