@@ -1,0 +1,32 @@
+<form id="formPlan" action="" method="">
+  <center>
+    <input type="text" name="title" placeholder="Nom du plan"/>
+  </center>
+<table>
+  <thead>
+    <th>
+      <label for="type">Type de l'action</label>
+    </th>
+    <th>
+      <label for="direction">Direction</label>
+    </th>
+    <th>
+      <label for="valeur">Valeur</label>
+    </th>
+    <th>
+    </th>
+  </thead>
+  
+  <tbody id="forRepeat">
+  </tbody>
+  
+<tfoot>
+  <tr>
+    <td colspan="4" align="right">
+      <input id="submitFormPlan" type="submit" value="Valider"/>
+    </td>
+  </tr> 
+</tfoot>
+  
+</table>
+</form>

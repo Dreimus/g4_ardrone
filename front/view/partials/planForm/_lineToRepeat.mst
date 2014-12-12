@@ -1,0 +1,32 @@
+<tr>
+  <td>
+    <select name="type">
+      {{#EnumType}}
+          <option value="{{value}}">
+            {{key}}
+          </option>
+      {{/EnumType}}
+    </select>
+  </td>
+
+
+  <td>
+    <select name="direction">
+      {{#EnumDirection}}
+        <option value="{{value}}">
+          {{key}}
+        </option>
+      {{/EnumDirection}}
+    </select>
+
+  </td>
+
+  <td>
+    <input type="text" name="valeur">
+  </td>
+
+  <td>
+    <img onclick="addNewLine(this)" id="plus" src="/assets/img/plus.png">
+    <img onclick="removeParentTR(this)" id="plus" src="/assets/img/moins.png">
+  </td>
+</tr>
