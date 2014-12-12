@@ -99,6 +99,19 @@ app.get('/partials/title', function(req, res){
   res.send(mstRender("front/view/partials/_title.mst"));
 });
 
+app.get('/partials/listPlan', function(req, res){
+  var data = Plan.getListName(),
+    result = '<select id="listPlan" name="plan">'
+  
+  for (var i = 0; i < data.length; i++){
+    result += '<option value="' + data[i] + '">' + data[i] + '</option>';
+  }
+  
+  result += '</select>';
+  
+  res.send(result);
+});
+
 // Sockets management
 io.sockets.on('connection', function (socket){
   
@@ -125,8 +138,10 @@ io.sockets.on('connection', function (socket){
     plan.savePlan();    
   });
   
-  socket.on("droneStart", function() {
-    var p = new Plan("Plan Test");
+  socket.on("droneStart", function(data) {
+    global.dc = undefined;
+    
+    var p = new Plan(data.planName);
     // p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move.key, EDirection_file.EDirection.Backward.key, 100));
     // p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Move.key, EDirection_file.EDirection.Forward.key, 100));
     // p.addAction(new DroneAction(ETypeAction_file.ETypeAction.Rotate.key, EDirection_file.EDirection.Right.key, 40));
@@ -134,7 +149,6 @@ io.sockets.on('connection', function (socket){
     dc.init(130);
     dc.setPlan(p);
     dc.start();
-    console.log(p);
   });
   
   socket.on("droneStop", function(){

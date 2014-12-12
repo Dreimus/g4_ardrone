@@ -27,6 +27,11 @@ function Plan(name, actionList) {
 
 }
 
+Plan.getListName = function(name){
+  console.log(db("Plans").pluck("name").value());
+  return db("Plans").pluck("name").value();
+};
+
 // Helper to test if a plan already exist
 Plan.exist = function(name){
   return !(db("Plans").find({name: name}).value() === undefined);

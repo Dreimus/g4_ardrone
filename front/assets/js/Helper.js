@@ -41,6 +41,11 @@ function getPartial(name) {
   return partial[name];
 }
 
+function getPartialForce(name) {
+  partial[name] = getRessource(name);
+  return partial[name];
+}
+
 // Return partial value from get request
 function getRessource(name) {
   var req = new XMLHttpRequest();

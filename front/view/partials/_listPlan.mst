@@ -1,7 +1,1 @@
-<select name="direction">
-  {{#EnumDirection}}
-    <option value="{{value}}">
-      {{key}}
-    </option>
-  {{/EnumDirection}}
-</select>
+<select name="plan">{{#.}}<option value="{{.}}">{{.}}</option>{{/.}}</select>

@@ -518,3 +518,8 @@ transform-origin: 50% 96%;
 -o-transition: all 0.1s;
 transition: all 0.1s;
 }
+
+#plus {
+  width: 30px;
+  height: 30px;
+}

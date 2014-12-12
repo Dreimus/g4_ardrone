@@ -189,7 +189,7 @@ Drone.prototype.startFlight = function(){
 // - Land order
 Drone.prototype.stopFlight = function (){
 	drone.stop();
-	drone.land();	
+	drone.land();
 	eventEmitter.emit('drone_stop');
 };
 
@@ -210,7 +210,7 @@ return (value*30);
 
 //- rotation time 
 Drone.prototype.getRotationTime = function(value){ // value:degree
-return (value*10);
+return (value*20);
 };
 
 module.exports = Drone;

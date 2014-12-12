@@ -81,7 +81,7 @@ function createPlanPageLogic (){
 // Handle the logic of flyWatcher
 function createFlyWatcherLogic(){
   pageContent.innerHTML = getPartial("flyWatcher");
-  
+  pageContent.querySelector("#carte").innerHTML = getPartialForce("listPlan");
 }
 
 // Add a new line in createPlanForm
@@ -116,7 +116,10 @@ function sendPlan(e){
 }
 
 function droneStart(){
-  socket.emit("droneStart");
+  socket.emit("droneStart", 
+    {planName: document.querySelector("#listPlan").options[
+        document.querySelector("#listPlan").selectedIndex
+      ].value});
 }
 
 function droneStop(){

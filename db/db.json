@@ -1,17 +1,202 @@
 {
   "Plans": [
     {
-      "name": "Plan4",
+      "name": "TestAvantArrière",
+      "actionList": [
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": "100"
+        },
+        {
+          "type": "Move",
+          "direction": "Backward",
+          "value": "100"
+        }
+      ]
+    },
+    {
+      "name": "RotationRight90",
+      "actionList": [
+        {
+          "type": "Rotate",
+          "direction": "Right",
+          "value": "90"
+        }
+      ]
+    },
+    {
+      "name": "RotationLeft90",
       "actionList": [
         {
           "type": "Rotate",
           "direction": "Left",
-          "value": 40
+          "value": "90"
+        }
+      ]
+    },
+    {
+      "name": "Chemin",
+      "actionList": [
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": "100"
         },
         {
           "type": "Rotate",
           "direction": "Right",
-          "value": 40
+          "value": "45"
+        },
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": "70"
+        },
+        {
+          "type": "Rotate",
+          "direction": "Left",
+          "value": "45"
+        },
+        {
+          "type": "Move",
+          "direction": "Up",
+          "value": "100"
+        },
+        {
+          "type": "Move",
+          "direction": "Down",
+          "value": "100"
+        },
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": "100"
+        },
+        {
+          "type": "Rotate",
+          "direction": "Left",
+          "value": "360"
+        },
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": "200"
+        },
+        {
+          "type": "Rotate",
+          "direction": "Left",
+          "value": "95"
+        },
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": "100"
+        },
+        {
+          "type": "Rotate",
+          "direction": "Right",
+          "value": "360"
+        },
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": "80"
+        },
+        {
+          "type": "Right",
+          "direction": "Left",
+          "value": "90"
+        },
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": "50"
+        },
+        {
+          "type": "Right",
+          "direction": "Left",
+          "value": "90"
+        }
+      ]
+    },
+    {
+      "name": "Right360",
+      "actionList": [
+        {
+          "type": "Rotate",
+          "direction": "Right",
+          "value": "360"
+        }
+      ]
+    },
+    {
+      "name": "360WithSeveral90",
+      "actionList": [
+        {
+          "type": "Rotate",
+          "direction": "Left",
+          "value": "90"
+        },
+        {
+          "type": "Rotate",
+          "direction": "Left",
+          "value": "90"
+        },
+        {
+          "type": "Rotate",
+          "direction": "Left",
+          "value": "90"
+        },
+        {
+          "type": "Rotate",
+          "direction": "Left",
+          "value": "90"
+        }
+      ]
+    },
+    {
+      "name": "test",
+      "actionList": [
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": "1"
+        },
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": "2"
+        },
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": "3"
+        },
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": "4"
+        },
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": "5"
+        },
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": "6"
+        },
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": "7"
+        },
+        {
+          "type": "Move",
+          "direction": "Forward",
+          "value": "8"
         }
       ]
     }
